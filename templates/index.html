@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %}Prompt Optimizer{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Optimize Your Prompts</h2>
+        <p class="text-gray-600 mb-6">
+            Enter your prompt below and our AI will optimize it to get the best possible results. The optimized prompt will include a clear persona, specific task, relevant context, and preferred response format.
+        </p>
+        
+        <form method="post" action="{{ url_for('home') }}" class="mb-6">
+            <div class="mb-4">
+                <label for="user_input" class="block text-gray-700 font-medium mb-2">Your Prompt:</label>
+                <textarea 
+                    id="user_input" 
+                    name="user_input" 
+                    rows="2" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    placeholder="e.g., Help me write a blog post about climate change"
+                    required
+                >{{ user_input|default('') }}</textarea>
+            </div>
+            <div class="flex justify-end">
+                <button 
+                    type="submit" 
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-md transition-colors flex items-center"
+                >
+                    <span>Optimize Prompt</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    {% if response %}
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h3 class="text-xl font-bold text-gray-800 mb-4">Optimized Prompt</h3>
+        <div class="bg-gray-50 p-4 rounded-md border border-gray-200">
+            <pre id="optimized-prompt" class="whitespace-pre-wrap font-sans text-gray-800">{{ response.text }}</pre>
+        </div>
+        
+        <div class="mt-4 flex justify-between items-center">
+            <div class="text-sm text-gray-600">
+                <span class="font-medium">Model:</span> {{ 'Gemini 2.0 Flash' }}
+            </div>
+            <div class="flex space-x-2">
+                <form action="{{ url_for('reset_session') }}" method="post" class="inline">
+                    <button 
+                        type="submit" 
+                        class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md transition-colors flex items-center"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        <span>Reset</span>
+                    </button>
+                </form>
+                <button 
+                    id="copy-button" 
+                    class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md transition-colors flex items-center"
+                    onclick="copyToClipboard()"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                    </svg>
+                    <span>Copy</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-md">
+        <h3 class="text-lg font-medium text-blue-800 mb-2">Pro Tips</h3>
+        <ul class="list-disc list-inside text-blue-700 space-y-1">
+            <li>Be specific about what you want the AI to do</li>
+            <li>Include relevant background information</li>
+            <li>Specify your preferred output format</li>
+            <li>Use clear, concise language</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function copyToClipboard() {
+    const optimizedPrompt = document.getElementById('optimized-prompt');
+    const textToCopy = optimizedPrompt.textContent;
+    const button = document.getElementById('copy-button');
+    
+    navigator.clipboard.writeText(textToCopy)
+        .then(() => {
+            // Update button text temporarily
+            const originalContent = button.innerHTML;
+            button.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span>Copied!</span>
+            `;
+            button.classList.remove('bg-gray-200', 'hover:bg-gray-300');
+            button.classList.add('bg-green-200', 'hover:bg-green-300', 'text-green-800');
+            
+            // Reset button after 2 seconds
+            setTimeout(() => {
+                button.innerHTML = originalContent;
+                button.classList.remove('bg-green-200', 'hover:bg-green-300', 'text-green-800');
+                button.classList.add('bg-gray-200', 'hover:bg-gray-300');
+            }, 2000);
+        })
+        .catch(err => {
+            console.error('Failed to copy text: ', err);
+            alert('Failed to copy to clipboard');
+        });
+}
+</script>
+{% endblock %}
