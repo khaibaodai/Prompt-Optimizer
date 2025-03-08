@@ -104,4 +104,4 @@ This application can be deployed to various platforms like Heroku, AWS, or Googl
 
 ## Contact
 
-[[Contact me on github](https://github.com/abcxyz91)]
+[Contact me on github](https://github.com/abcxyz91)
