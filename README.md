@@ -13,7 +13,7 @@ A web application that helps users optimize their prompts for better AI response
 
 ## Webdemo
 
-[Prompt Optimizer v1.0 - Hosted by Render](https://prompt-optimizer-ag5j.onrender.com)
+[Prompt Optimizer v2.0 - Hosted by Render](https://prompt-optimizer-ag5j.onrender.com)
 
 ## Technology Stack
 
