@@ -15,6 +15,20 @@ A web application that helps users optimize their prompts for better AI response
 
 [Prompt Optimizer v2.0 - Hosted by Render](https://prompt-optimizer-ag5j.onrender.com)
 
+## Example
+
+- **Text prompt**:  
+  **Before:**  
+  `Help me write a blog post about climate change`  
+  **After:**  
+  `As a climate science communicator, write a 500-word blog post that informs the general public about the effects of climate change, focusing on rising sea levels and increased frequency of extreme weather events. The blog post should include a brief explanation of the causes of climate change and suggest actions individuals can take to reduce their carbon footprint. Format the blog post with a clear title, introduction, body paragraphs with headings, and a concluding call to action.`
+
+- **Image prompt**:  
+  **Before:**  
+  `Draw a mountain landscape at sunset`  
+  **After:**  
+  `Draw a breathtaking mountain landscape bathed in the warm, golden light of a sunset. The scene evokes a sense of tranquility and awe, with detailed textures and vibrant colors enhancing the natural beauty. Rendered in a realistic style with 4K resolution, the image captures the serene and majestic atmosphere of the mountains. Shot with a wide-angle lens to emphasize the vastness and grandeur of the scenery.`
+
 ## Technology Stack
 
 - **Backend**: Python with Flask framework
