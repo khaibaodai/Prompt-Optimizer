@@ -1,10 +1,12 @@
 # Prompt Optimizer
 
-A web application that helps users optimize their prompts for better AI responses. The application uses Google's Gemini AI model to transform simple prompts into well-structured ones with clear persona, task, context, and format specifications.
+A web application that helps users optimize their prompts for better AI responses. The application uses Google's Gemini AI model to transform simple prompts into well-structured ones with clear specifications for text and image generation.
 
 ## Features
 
-- **Prompt Optimization**: Transform basic prompts into well-structured, effective AI instructions
+- **Text Prompt Optimization**: Transform basic text prompts into well-structured, effective AI instructions with clear persona, task, context, and format specifications
+- **Image Prompt Optimization**: Create optimized image prompts with subject, context, emotion, style, and camera settings
+- **Style Selection**: Choose from various style categories for image prompts
 - **User-friendly Interface**: Clean, responsive design built with Tailwind CSS
 - **Copy Functionality**: Easily copy optimized prompts to clipboard
 - **Responsive Design**: Works on desktop and mobile devices
@@ -22,7 +24,7 @@ A web application that helps users optimize their prompts for better AI response
 ## Prerequisites
 
 - Python 3.8 or higher
-- Google Gemini API key
+- Google Gemini API key (you can get one for free from [Google AI Studio](https://aistudio.google.com/apikey))
 
 ## Installation
 
@@ -73,6 +75,7 @@ A web application that helps users optimize their prompts for better AI response
 ```
 prompt-optimizer/
 ├── app.py                # Main Flask application
+├── helpers.py            # Helper functions for the application
 ├── static/
 │   ├── css/
 │   │   └── styles.css    # Custom CSS styles
@@ -80,18 +83,39 @@ prompt-optimizer/
 │       └── script.js     # JavaScript functionality
 ├── templates/
 │   ├── base.html         # Base template with common elements
-│   ├── index.html        # Main application page
+│   ├── index.html        # Text prompt optimization page
+│   ├── image.html        # Image prompt optimization page
 │   └── partials/
-│       ├── header.html   # Header partial
+│       ├── header.html   # Header with navigation
 │       └── footer.html   # Footer partial
 ├── .env                  # Environment variables (not tracked in git)
 ├── requirements.txt      # Python dependencies
 └── README.md             # This file
 ```
 
+## Application Routes
+
+- `/` - Home route for text prompt optimization
+- `/image` - Route for image prompt optimization
+- `/reset_session` - Route to reset the user session
+
 ## Customizing the System Prompt
 
-You can customize how the AI optimizes prompts by modifying the `SYSTEM_INSTRUCTION` variable in `app.py`.
+You can customize how the AI optimizes prompts by modifying the `SYSTEM_INSTRUCTION` variable in the `helpers.py` file.
+
+## Style Categories for Image Prompts
+
+The application offers several style categories for image prompts:
+- Realistic
+- Cinematic
+- Anime
+- Digital Art
+- Oil Painting
+- Watercolor
+- Sketch
+- Cartoon
+
+You can modify these options by updating the `STYLES` list in `app.py`.
 
 ## Deployment
 
