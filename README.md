@@ -7,13 +7,14 @@ A web application that helps users optimize their prompts for better AI response
 - **Text Prompt Optimization**: Transform basic text prompts into well-structured, effective AI instructions with clear persona, task, context, and format specifications
 - **Image Prompt Optimization**: Create optimized image prompts with subject, context, emotion, style, and camera settings
 - **Style Selection**: Choose from various style categories for image prompts
+- **Multilingual Support**: Switch between English and Vietnamese interfaces
 - **User-friendly Interface**: Clean, responsive design built with Tailwind CSS
 - **Copy Functionality**: Easily copy optimized prompts to clipboard
 - **Responsive Design**: Works on desktop and mobile devices
 
 ## Webdemo
 
-[Prompt Optimizer v2.0 - Hosted by Render](https://prompt-optimizer-ag5j.onrender.com)
+[Prompt Optimizer v3.0 - Hosted by Render](https://prompt-optimizer-ag5j.onrender.com)
 
 ## Example
 
@@ -90,11 +91,13 @@ A web application that helps users optimize their prompts for better AI response
 prompt-optimizer/
 ├── app.py                # Main Flask application
 ├── helpers.py            # Helper functions for the application
+├── translations.py       # Translation dictionaries for multilingual support
 ├── static/
 │   ├── css/
 │   │   └── styles.css    # Custom CSS styles
-│   └── js/
-│       └── script.js     # JavaScript functionality
+│   ├── js/
+│   │   └── script.js     # JavaScript functionality
+│   └── favicon.ico       # Website favicon
 ├── templates/
 │   ├── base.html         # Base template with common elements
 │   ├── index.html        # Text prompt optimization page
@@ -111,11 +114,16 @@ prompt-optimizer/
 
 - `/` - Home route for text prompt optimization
 - `/image` - Route for image prompt optimization
-- `/reset_session` - Route to reset the user session
+- `/reset` - Route to reset the user input & response
+- `/change_language/<language>` - Route to switch between languages
 
-## Customizing the System Prompt
+## Language Support
 
-You can customize how the AI optimizes prompts by modifying the `SYSTEM_INSTRUCTION` variable in the `helpers.py` file.
+The application supports:
+- Vietnamese (Default)
+- English
+
+You can switch between languages using the language toggle in the header.
 
 ## Style Categories for Image Prompts
 
