@@ -5,32 +5,32 @@
 {% block content %}
 <div class="max-w-4xl mx-auto">
     <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">Optimize Your Image Prompts</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">{{ t("optimize_image_prompts") }}</h2>
         <p class="text-gray-600 mb-6">
-            Enter your image description below and our AI will optimize it to get the best possible results. The optimized prompt will include a clear subject, context, emotion, style, and camera settings.
+            {{ t("image_description") }}
         </p>
         
         <form method="post" action="{{ url_for('image_prompt') }}" class="mb-6">
             <div class="mb-4">
-                <label for="user_input" class="block text-gray-700 font-medium mb-2">Image Description:</label>
+                <label for="user_input" class="block text-gray-700 font-medium mb-2">{{ t("image_desc") }}:</label>
                 <textarea 
                     id="user_input" 
                     name="user_input" 
                     rows="2" 
                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                    placeholder="e.g., A mountain landscape at sunset"
+                    placeholder="{{ t('image_example') }}""
                     required
                 >{{ user_input|default('') }}</textarea>
             </div>
             <div class="mb-4">
-                <label for="style" class="block text-gray-700 font-medium mb-2">Style Category:</label>
+                <label for="style" class="block text-gray-700 font-medium mb-2">{{ t("style_category") }}:</label>
                 <select 
                     id="style" 
                     name="style" 
                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
                     required
                 >
-                    <option value="" {% if not style %}selected{% endif %} disabled>Select a style</option>
+                    <option value="" {% if not style %}selected{% endif %} disabled>{{ t("style_select") }}</option>
                     {% for style_option in STYLES %}
                         <option value="{{ style_option }}" {% if style == style_option %}selected{% endif %}>{{ style_option }}</option>
                     {% endfor %}
@@ -41,7 +41,7 @@
                     type="submit" 
                     class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-md transition-colors flex items-center"
                 >
-                    <span>Optimize Image Prompt</span>
+                    <span>{{ t("optimize_image") }}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg>
@@ -52,7 +52,7 @@
 
     {% if response %}
     <div class="bg-white rounded-lg shadow-md p-6">
-        <h3 class="text-xl font-bold text-gray-800 mb-4">Optimized Image Prompt</h3>
+        <h3 class="text-xl font-bold text-gray-800 mb-4">{{ t("optimized_prompt") }}</h3>
         <div class="bg-gray-50 p-4 rounded-md border border-gray-200">
             <pre id="optimized-prompt" class="whitespace-pre-wrap font-sans text-gray-800">{{ response }}</pre>
         </div>
@@ -62,7 +62,7 @@
                 <span class="font-medium">Model:</span> {{ 'Gemini 2.0 Flash' }}
             </div>
             <div class="flex space-x-2">
-                <form action="{{ url_for('reset_session') }}" method="post" class="inline">
+                <form action="{{ url_for('reset') }}" method="post" class="inline">
                     <button 
                         type="submit" 
                         class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md transition-colors flex items-center"
@@ -89,13 +89,13 @@
     {% endif %}
 
     <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-md">
-        <h3 class="text-lg font-medium text-blue-800 mb-2">Pro Tips for Image Prompts</h3>
+        <h3 class="text-lg font-medium text-blue-800 mb-2">{{ t("pro_tips_image") }}</h3>
         <ul class="list-disc list-inside text-blue-700 space-y-1">
-            <li>Be specific about the subject and setting</li>
-            <li>Describe the mood or emotion you want to convey</li>
-            <li>Mention lighting conditions (e.g., sunset, studio lighting)</li>
-            <li>Specify camera angle or perspective (e.g., close-up, aerial view)</li>
-            <li>Include details about texture and materials when relevant</li>
+            <li>{{ t("image_tip_1") }}</li>
+            <li>{{ t("image_tip_2") }}</li>
+            <li>{{ t("image_tip_3") }}</li>
+            <li>{{ t("image_tip_4") }}</li>
+            <li>{{ t("image_tip_5") }}</li>
         </ul>
     </div>
 </div>

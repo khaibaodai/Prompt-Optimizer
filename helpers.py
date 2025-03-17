@@ -8,7 +8,10 @@ _ = load_dotenv(find_dotenv())
 
 # Set up model and system prompt
 MODEL = "gemini-2.0-flash"
-SYSTEM_INSTRUCTION = "Your response will be the optimized prompt only."
+SYSTEM_INSTRUCTION = """
+If user's prompt is in Vietnamese, your response should be in Vietnamese.
+If user's prompt is in English, your response should be in English.
+Your response will be the optimized prompt only."""
 
 def get_response(prompt):
     """A helper function to generate an optimized prompt using the Gemini API from user input."""

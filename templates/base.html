@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>{% block title %}Prompt Optimizer{% endblock %}</title>
     <!-- Tailwind CSS from CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -33,7 +34,7 @@
     </main>
     
     <!-- Footer -->
-    {% include 'partials/footer.html' %}
+    {% include "partials/footer.html" %}
     
     <!-- JavaScript -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
