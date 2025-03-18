@@ -9,8 +9,8 @@ _ = load_dotenv(find_dotenv())
 # Set up model and system prompt
 MODEL = "gemini-2.0-flash"
 SYSTEM_INSTRUCTION = """
-If user's prompt is in Vietnamese, your response should be in Vietnamese.
-If user's prompt is in English, your response should be in English.
+If user's prompt has some Vietnamese words in it, your response must be in Vietnamese.
+If user's prompt is all in English, your response should be in English.
 Your response will be the optimized prompt only."""
 
 def get_response(prompt):
