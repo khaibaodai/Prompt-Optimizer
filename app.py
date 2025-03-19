@@ -1,4 +1,5 @@
 from google import genai
+from google.genai import errors
 from dotenv import load_dotenv, find_dotenv
 from flask import Flask, request, render_template, flash, redirect, url_for, session
 import os
@@ -85,7 +86,7 @@ def home():
             return render_template("index.html", user_input=user_input, response=response)
         except ValueError as e:
             flash(f"Config error: {e}", "danger")
-        except genai.APIException as e:
+        except errors.APIError as e:
             flash(f"Gemini API error: {e}", "danger")
         except Exception as e:
             flash(f"Unexpected error: {e}", "danger")
@@ -119,21 +120,21 @@ def image_prompt():
         
         prompt = f"""
         You are a helpful AI assistant that specializes in optimizing user's prompts to generate better image.
-        You must always ensure that the optimized description is clear, concise, and well-structured.
+        You must always ensure that the optimized prompt is clear, concise, using descriptive language and well-structured.
 
-        The optimized description should include the following 5 areas:
+        The optimized prompt should include the following 5 areas:
         1. Subject: Clearly describe the main subject of the image.
         2. Context: Provide relevant context or background information for the image.
         3. Emotion: Capture the emotional tone or mood of the image such as natural, dramatic, cold etc.
         4. Style: Specify the style of the image such as painting, photograph, sketches etc.
-        5. Camera settings: Specify the camera settings used to capture the image such as close-up, wide-angle, aerial view, etc.
+        5. Camera settings: Specify the camera settings used to capture the image such as portrait, close-up, wide-angle, aerial view, etc.
 
-        If the image is unclear or ambiguous, you can generate an optimized description with at least 200 words as an example.
+        If the user's prompt is unclear or ambiguous, you can generate an optimized prompt with at least 50 words in a single paragraph as an example.
         
-        Below is the image description:
-        <image_description>
-        {user_input} in 4K resolution, high-quality, beautiful with {style} style.
-        </image_description>
+        Below is the user's prompt:
+        <user_prompt>
+        {user_input} in 4K resolution, detailed, high-quality, beautiful with {style} style.
+        </user_prompt>
         """
         try:
             response = get_response(prompt)
@@ -141,7 +142,7 @@ def image_prompt():
             return render_template("image.html", user_input=user_input, response=response, STYLES=STYLES)
         except ValueError as e:
             flash(f"Config error: {e}", "danger")
-        except genai.APIException as e:
+        except errors.APIError as e:
             flash(f"Gemini API error: {e}", "danger")
         except Exception as e:
             flash(f"Unexpected error: {e}", "danger")
