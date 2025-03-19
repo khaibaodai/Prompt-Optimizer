@@ -1,33 +1,47 @@
 {% extends 'base.html' %}
 
-{% block title %}Prompt Optimizer{% endblock %}
+{% block title %}Image Prompt Optimizer{% endblock %}
 
 {% block content %}
 <div class="max-w-4xl mx-auto">
     <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-        <h2 class="text-2xl font-bold text-gray-800 mb-4">{{ t("optimize_prompts") }}</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">{{ t("optimize_image_prompts") }}</h2>
         <p class="text-gray-600 mb-6">
-            {{ t("main_description") }}
+            {{ t("image_description") }}
         </p>
         
-        <form method="post" action="{{ url_for('home') }}" class="mb-6">
+        <form method="post" action="{{ url_for('image_prompt') }}" class="mb-6">
             <div class="mb-4">
-                <label for="user_input" class="block text-gray-700 font-medium mb-2">{{ t("your_prompt") }}:</label>
+                <label for="user_input" class="block text-gray-700 font-medium mb-2">{{ t("image_desc") }}:</label>
                 <textarea 
                     id="user_input" 
                     name="user_input" 
                     rows="2" 
                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-                    placeholder="{{ t('text_example') }}""
+                    placeholder="{{ t('image_example') }}""
                     required
                 >{{ user_input|default('') }}</textarea>
+            </div>
+            <div class="mb-4">
+                <label for="style" class="block text-gray-700 font-medium mb-2">{{ t("style_category") }}:</label>
+                <select 
+                    id="style" 
+                    name="style" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                    required
+                >
+                    <option value="" {% if not style %}selected{% endif %} disabled>{{ t("style_select") }}</option>
+                    {% for style_option in STYLES %}
+                        <option value="{{ style_option }}" {% if style == style_option %}selected{% endif %}>{{ style_option }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="flex justify-end">
                 <button 
                     type="submit" 
                     class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-md transition-colors flex items-center"
                 >
-                    <span>{{ t("optimize_prompt")}}</span>
+                    <span>{{ t("optimize_image") }}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg>
@@ -75,12 +89,13 @@
     {% endif %}
 
     <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-md">
-        <h3 class="text-lg font-medium text-blue-800 mb-2">{{ t("pro_tips") }}</h3>
+        <h3 class="text-lg font-medium text-blue-800 mb-2">{{ t("pro_tips_image") }}</h3>
         <ul class="list-disc list-inside text-blue-700 space-y-1">
-            <li>{{ t("tip_1") }}</li>
-            <li>{{ t("tip_2") }}</li>
-            <li>{{ t("tip_3") }}</li>
-            <li>{{ t("tip_4") }}</li>
+            <li>{{ t("image_tip_1") }}</li>
+            <li>{{ t("image_tip_2") }}</li>
+            <li>{{ t("image_tip_3") }}</li>
+            <li>{{ t("image_tip_4") }}</li>
+            <li>{{ t("image_tip_5") }}</li>
         </ul>
     </div>
 </div>
