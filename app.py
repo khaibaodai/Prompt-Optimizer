@@ -2,6 +2,8 @@ from google import genai
 from google.genai import errors
 from dotenv import load_dotenv, find_dotenv
 from flask import Flask, request, render_template, flash, redirect, url_for, session
+from flask_session import Session
+from markupsafe import escape
 import os
 import sys
 import uuid
@@ -21,7 +23,17 @@ _ = load_dotenv(find_dotenv())
 
 # Create a Flask app, get the secret key from environment variables or generate a random key
 app = Flask(__name__)
-app.secret_key = os.getenv("FLASK_SECRET_KEY", os.urandom(24))
+app.secret_key = os.getenv("FLASK_SECRET_KEY")
+if not app.secret_key:
+    print("Secret key not found in environment variables, generating a random key")
+    app.secret_key = os.urandom(24)
+
+# Config Session to use filesystem (instead of signed cookies)
+app.config["SESSION_PERMANENT"] = False # Session expires when the browser is closed
+app.config["SESSION_TYPE"] = "filesystem" # Store session data in the filesystem on server
+app.config['SESSION_FILE_DIR'] = os.path.join(app.root_path, 'flask_session') # Directory to store session data
+app.config['SESSION_FILE_THRESHOLD'] = 500 # The maximum number of session files before cleanup
+Session(app)
 
 # Setup style categories for image prompts
 STYLES = ["Realistic", "Cinematic", "Anime", "Digital Art", "Oil Painting", "Watercolor", "Sketch", "Cartoon"]
@@ -52,9 +64,9 @@ def home():
     response = None
     user_input = ""
     
-    """Get user input, validate and generate AI response."""
+    """Get user input, sanitize, validate and generate AI response."""
     if request.method == "POST":
-        user_input = request.form.get("user_input", "").strip()
+        user_input = escape(request.form.get("user_input", "").strip())
         if not user_input:
             flash("Please enter a prompt", "danger")
             return redirect(url_for("home"))
@@ -102,9 +114,9 @@ def image_prompt():
     response = None
     user_input = ""
 
-    """Get user input, validate and generate AI response."""
+    """Get user input, sanitize, validate and generate AI response."""
     if request.method == "POST":     
-        user_input = request.form.get("user_input", "").strip()
+        user_input = escape(request.form.get("user_input", "").strip())
         if not user_input:
             flash("Please enter an image description", "danger")
             return redirect(url_for("image_prompt"))

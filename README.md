@@ -148,6 +148,11 @@ This application can be deployed to various platforms like Heroku, AWS, or Googl
 - Google Generative AI for providing the Gemini model
 - Tailwind CSS for the design framework
 
+## Future Updates
+
+- Add rate limiter and prompt caching to reduce API calls
+- Optimize image prompt for other popular image generators (StableDiffusion, Midjourney, Leonardo etc)
+
 ## Contact
 
 [Contact me on github](https://github.com/abcxyz91)
