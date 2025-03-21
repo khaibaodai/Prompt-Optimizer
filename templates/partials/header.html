@@ -26,14 +26,14 @@
                 <!-- Language toggle -->
                 <div class="flex justify-center scale-75 md:scale-75">
                     <div class="relative inline-flex items-center border border-gray-300 rounded-full p-1 bg-gray-50">
-                        <a href="{{ url_for('change_language', language='en') }}" class="relative z-10 flex items-center justify-center w-14 h-8 text-sm font-medium transition-all duration-200 ease-in-out {% if session.get('language', 'en') == 'en' %}text-white{% else %}text-gray-500{% endif %}">
-                            {% if session.get('language', 'en') == 'en' %}
+                        <a href="{{ url_for('change_language', language='en') }}" class="relative z-10 flex items-center justify-center w-14 h-8 text-sm font-medium transition-all duration-200 ease-in-out {% if session.get('language', 'vi') == 'en' %}text-white{% else %}text-gray-500{% endif %}">
+                            {% if session.get('language', 'vi') == 'en' %}
                             <span class="absolute inset-0 bg-blue-500 rounded-full shadow-sm"></span>
                             {% endif %}
                             <span class="relative z-20">EN</span>
                         </a>
-                        <a href="{{ url_for('change_language', language='vi') }}" class="relative z-10 flex items-center justify-center w-12 h-7 text-xs font-medium transition-all duration-200 ease-in-out {% if session.get('language') == 'vi' %}text-white{% else %}text-gray-500{% endif %}">
-                            {% if session.get('language') == 'vi' %}
+                        <a href="{{ url_for('change_language', language='vi') }}" class="relative z-10 flex items-center justify-center w-12 h-7 text-xs font-medium transition-all duration-200 ease-in-out {% if session.get('language', 'vi') == 'vi' %}text-white{% else %}text-gray-500{% endif %}">
+                            {% if session.get('language','vi') == 'vi' %}
                             <span class="absolute inset-0 bg-blue-500 rounded-full shadow-sm"></span>
                             {% endif %}
                             <span class="relative z-20">VI</span>
